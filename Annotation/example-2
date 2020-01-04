@@ -1,0 +1,49 @@
+//Creating annotation  
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+// @Target(ElementType.class)
+
+@interface Author {
+    String authorName();
+}
+
+// Applying annotation
+class Hello {
+    @Author(authorName = "Prema")
+    public void sayHello() {
+        System.out.println("hello annotation");
+    }
+
+    @Author(authorName = "Meera")
+    public void sayHelloAgain() {
+        System.out.println("hello Againannotation");
+    }
+
+    @Author(authorName = "Devika")
+    public void sayHelloToAll() {
+        System.out.println("hello toAlllAgainannotation");
+    }
+}
+
+// Accessing annotation
+class TestCustomAnnotation {
+    public static void main(final String args[]) throws Exception {
+
+        Hello h = new Hello();
+         
+        Method m = h.getClass().getMethod("sayHello");
+        Author myannotation = m.getAnnotation(Author.class);
+        System.out.println("Author for Methods is: " + myannotation.authorName());
+        
+        m = h.getClass().getMethod("sayHelloAgain");
+        myannotation = m.getAnnotation(Author.class);
+        System.out.println("vAuthor for Methods is : " + myannotation.authorName());
+        
+        m = h.getClass().getMethod("sayHelloToAll");
+        myannotation = m.getAnnotation(Author.class);
+        System.out.println("Author for Methods is: " + myannotation.authorName());
+    }
+}
