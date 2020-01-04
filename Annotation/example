@@ -1,0 +1,29 @@
+//Creating annotation  
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface MyFirstAnnotation {
+    int value();
+}
+
+// Applying annotation
+class Hello {
+    @MyFirstAnnotation(value = 10)
+    public void sayHello() {
+        System.out.println("hello annotation");
+    }
+}
+
+// Accessing annotation
+class TestCustomAnnotation1 {
+    public static void main(final String args[]) throws Exception {
+
+        Hello h = new Hello();
+        Method m = h.getClass().getMethod("sayHello");
+
+        MyFirstAnnotation myannotation = m.getAnnotation(MyFirstAnnotation.class);
+        System.out.println("value is: " + myannotation.value());
+    }
+}
